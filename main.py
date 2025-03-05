@@ -9,6 +9,7 @@ sec_var = None
 root = None
 timer_running = False 
 current_timer = 0  
+paused_timer = 0
 
 def update_clock():
 
@@ -39,13 +40,108 @@ def start_timer(seconds):
         timer_running = True
         update_clock()  
 
+def pause_timer():
+
+    global timer_running, paused_timer
+
+    if timer_running:
+        timer_running = False
+        paused_timer = current_timer
+
+def resume_timer():
+
+    global timer_running, paused_timer
+
+    if not timer_running and paused_timer > 0:
+        start_timer(paused_timer)
+
 def stop_timer():
 
     #stops timer and makes sure clock doesn't start again.
-    global timer_running
-    timer_running = False  
+    global timer_running, current_timer, paused_timer
+    timer_running = False
+    current_timer = 0
+    paused_timer = 0
+    min_var.set("00")
+    sec_var.set("00")
+
+def window_10min():
+
+    new_window = tk.Toplevel(root)
+    new_window.geometry("720x480")
+    new_window.title("10min Timer")
+
+    min_var_10 = tk.StringVar(new_window, value = "10")
+    sec_var_10 = tk.StringVar(new_window, value = "00")
+
+    timer_running_10 = [False]
+    current_timer_10 = [0]
+    paused_timer_10 = [0]
+
+
+    def update_clock_10():
+
+        if current_timer_10[0] >= 0 and timer_running_10[0]:
+            minutes, seconds = divmod(current_timer_10[0], 60)
+            min_var_10.set(f"{minutes:02d}")
+            sec_var_10.set(f"{seconds:02d}")
+
+            if current_timer_10[0] == 0:
+                playsound("alarm.wav")
+                messagebox.showinfo("Session is over.")
+                timer_running_10[0] = False
+            else:
+                current_timer_10[0] -= 1
+                new_window.after(1000, update_clock_10)
+
+    def start_timer_10(seconds):
+
+        if not timer_running_10[0]:
+            current_timer_10[0] = seconds
+            timer_running_10[0] = True
+            update_clock_10()
+
+    def pause_timer_10():
+
+        if timer_running_10[0]:
+            timer_running_10[0] = False
+            paused_timer_10[0] = current_timer_10[0]
+
+    def resume_timer_10():
+
+        if not timer_running_10[0] and paused_timer_10[0] > 0:
+            start_timer_10(paused_timer_10[0])
+
+    def stop_timer_10():
+
+        timer_running_10[0] = False
+        current_timer_10[0] = 0
+        paused_timer_10[0] = 0
+        min_var_10.set("00")
+        sec_var_10.set("00")
+
+
+    min_label_10 = tk.Label(new_window, textvariable=min_var_10, font=("roboto", 25, "bold"), bg="red", fg="black")
+    min_label_10.pack()
+
+    sec_label_10 = tk.Label(new_window, textvariable=sec_var_10, font=("roboto", 25, "bold"), bg="black", fg="white")
+    sec_label_10.pack()
+
+    # Buttons for 10-minute session
+    btn_start_10 = tk.Button(new_window, text="Start 10min", bd=5, command=lambda: start_timer_10(10*60), bg="red", font=("roboto", 20, "bold"))
+    btn_start_10.pack()
+
+    btn_pause_10 = tk.Button(new_window, text="Pause", bd=5, command=pause_timer_10, bg="red", font=("roboto", 20, "bold"))
+    btn_pause_10.pack()
+
+    btn_resume_10 = tk.Button(new_window, text="Resume", bd=5, command=resume_timer_10, bg="red", font=("roboto", 20, "bold"))
+    btn_resume_10.pack()
+
+    btn_stop_10 = tk.Button(new_window, text="Stop", bd=5, command=stop_timer_10, bg="red", font=("roboto", 20, "bold"))
+    btn_stop_10.pack()
 
 def main():
+
     #initilize and create GUI window
     global min_var, sec_var, root
 
@@ -72,14 +168,20 @@ def main():
     canvas.create_image(640, 260, image = bg, anchor = "center")
 
     #various buttons for different times, pause, and stop.
-    btn_clock_A = tk.Button(root, text = "25min Session", bd = 5, command = lambda: start_timer(25*60), bg = "red", font = ("roboto", 20, "bold"))
-    btn_clock_A.place(x = 480, y = 580)
+    btn_clock_A = tk.Button(root, text="25min Session", bd=5, command=lambda: start_timer(25*60), bg="red", font=("roboto", 20, "bold"))
+    btn_clock_A.place(x=480, y=580)
 
-    btn_pause = tk.Button(root, text = "Pause", bd=5, command = lambda: start_timer(5*60), bg = "red", font = ("roboto", 20, "bold"))
-    btn_pause.place(x = 580, y = 580)
+    btn_pause = tk.Button(root, text="Pause", bd=5, command=pause_timer, bg="red", font=("roboto", 20, "bold"))
+    btn_pause.place(x=580, y=580)
 
-    btn_stop = tk.Button(root, text = "Stop", bd = 5, command = stop_timer, bg = "red", font = ("roboto", 20, "bold"))
-    btn_stop.place(x = 680, y = 580)
+    btn_resume = tk.Button(root, text="Resume", bd=5, command=resume_timer, bg="red", font=("roboto", 20, "bold"))
+    btn_resume.place(x=680, y=580)
+
+    btn_stop = tk.Button(root, text="Stop", bd=5, command=stop_timer, bg="red", font=("roboto", 20, "bold"))
+    btn_stop.place(x=780, y=580)
+
+    btn_10min = tk.Button(root, text="10min Session", bd=5, command=window_10min, bg="red", font=("roboto", 20, "bold"))
+    btn_10min.place(x=880, y=580)
 
     root.mainloop()
 
