@@ -73,7 +73,7 @@ def window_10min():
 
     canvas_10 = tk.Canvas(new_window, width = 720, height = 480)
     canvas_10.pack(expand = True, fill = "both")
-    img_10 = Image.open("10min_pomodoro.png")
+    img_10 = Image.open("10min_pomodoro_background.png")
     bg_10 = ImageTk.PhotoImage(img_10)
     canvas_10.create_image(0, 0, image = bg_10, anchor = "nw")
 
@@ -170,7 +170,7 @@ def main():
     #application background image
     canvas = tk.Canvas(root, width = 1280, height = 720)
     canvas.pack(expand = True, fill = "both")
-    img = Image.open("pomodoro (1).png")
+    img = Image.open("25min_pomodoro_background.png")
     bg = ImageTk.PhotoImage(img)
     canvas.create_image(640, 260, image = bg, anchor = "center")
 
