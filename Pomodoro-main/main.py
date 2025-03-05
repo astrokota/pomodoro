@@ -6,6 +6,7 @@ from tkinter import messagebox
 # ==========================
 # GLOBAL VARIABLES
 # ==========================
+
 #Variables for timer logic and GUI elements
 min_var = None #Minutes display variable
 sec_var = None #Seconds display variable
