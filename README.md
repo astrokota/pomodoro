@@ -50,7 +50,7 @@ Dakota's Pomodoro Timer is a simple time-management application based on the Pom
 
 ### Launching the Application
 1. Open a terminal or command prompt.
-2. Navigate to the folder containing the `pomodoro_timer.py` file.
+2. Navigate to the folder containing the `main` file.
 3. Run the script with:
 
    
@@ -91,6 +91,16 @@ To continue the countdown from where you left off, click:
 - Click **🔴 "Exit"** to close the application.
 - If using the **10-minute session window**, clicking **"Exit"** will only close that window while keeping the **main timer running**.
 
+### Testing the Application
+1. Open a terminal or command prompt.
+2. Navigate to the folder containing the `main` file.
+3. Run the script with:
+
+   
+   python -m unittest test
+   
+
+4. The console should display "OK" without errors/failures.
 ---
 
 ## Troubleshooting & FAQs
@@ -101,7 +111,7 @@ To continue the countdown from where you left off, click:
 ✅ Reinstall `playsound` using:
 
 
-  pip install playsound
+pip install playsound
 
 
 ### **Q2: Can I change the session durations?**
