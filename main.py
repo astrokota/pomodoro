@@ -71,6 +71,14 @@ def window_10min():
     new_window.geometry("720x480")
     new_window.title("10min Timer")
 
+    canvas_10 = tk.Canvas(new_window, width = 720, height = 480)
+    canvas_10.pack(expand = True, fill = "both")
+    img_10 = Image.open("10min_pomodoro.png")
+    bg_10 = ImageTk.PhotoImage(img_10)
+    canvas_10.create_image(0, 0, image = bg_10, anchor = "nw")
+
+    new_window.bg_image = bg_10
+
     min_var_10 = tk.StringVar(new_window, value = "10")
     sec_var_10 = tk.StringVar(new_window, value = "00")
 
@@ -122,23 +130,22 @@ def window_10min():
 
 
     min_label_10 = tk.Label(new_window, textvariable=min_var_10, font=("roboto", 25, "bold"), bg="red", fg="black")
-    min_label_10.pack()
-
     sec_label_10 = tk.Label(new_window, textvariable=sec_var_10, font=("roboto", 25, "bold"), bg="black", fg="white")
-    sec_label_10.pack()
 
     # Buttons for 10-minute session
     btn_start_10 = tk.Button(new_window, text="Start 10min", bd=5, command=lambda: start_timer_10(10*60), bg="red", font=("roboto", 20, "bold"))
-    btn_start_10.pack()
-
     btn_pause_10 = tk.Button(new_window, text="Pause", bd=5, command=pause_timer_10, bg="red", font=("roboto", 20, "bold"))
-    btn_pause_10.pack()
-
     btn_resume_10 = tk.Button(new_window, text="Resume", bd=5, command=resume_timer_10, bg="red", font=("roboto", 20, "bold"))
-    btn_resume_10.pack()
-
     btn_stop_10 = tk.Button(new_window, text="Stop", bd=5, command=stop_timer_10, bg="red", font=("roboto", 20, "bold"))
-    btn_stop_10.pack()
+
+    canvas_10.create_window(360, 150, window = min_label_10)
+    canvas_10.create_window(360, 200, window = sec_label_10)
+
+    canvas_10.create_window(550, 100, window = btn_start_10)
+    canvas_10.create_window(550, 200, window = btn_pause_10)
+    canvas_10.create_window(550, 300, window = btn_resume_10)
+    canvas_10.create_window(550, 400, window = btn_stop_10)
+    
 
 def main():
 
