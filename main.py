@@ -137,14 +137,16 @@ def window_10min():
     btn_pause_10 = tk.Button(new_window, text="Pause", bd=5, command=pause_timer_10, bg="red", font=("roboto", 20, "bold"))
     btn_resume_10 = tk.Button(new_window, text="Resume", bd=5, command=resume_timer_10, bg="red", font=("roboto", 20, "bold"))
     btn_stop_10 = tk.Button(new_window, text="Stop", bd=5, command=stop_timer_10, bg="red", font=("roboto", 20, "bold"))
+    btn_exit_10 = tk.Button(new_window, text = "Exit", bd = 5, command = new_window.destroy, bg = "red", font = ("roboto", 20, "bold"))
 
     canvas_10.create_window(360, 150, window = min_label_10)
     canvas_10.create_window(360, 200, window = sec_label_10)
 
-    canvas_10.create_window(600, 100, window = btn_start_10)
-    canvas_10.create_window(600, 200, window = btn_pause_10)
-    canvas_10.create_window(600, 300, window = btn_resume_10)
-    canvas_10.create_window(600, 400, window = btn_stop_10)
+    canvas_10.create_window(600, 60, window = btn_start_10)
+    canvas_10.create_window(600, 155, window = btn_pause_10)
+    canvas_10.create_window(600, 250, window = btn_resume_10)
+    canvas_10.create_window(600, 345, window = btn_stop_10)
+    canvas_10.create_window(600, 435, window = btn_exit_10)
     
 
 def main():
@@ -169,11 +171,11 @@ def main():
     bg = ImageTk.PhotoImage(img)
     canvas.create_image(0, 0, image = bg, anchor = "nw")
 
-    min_label = tk.Label(root, textvariable = min_var, font = ("roboto", 25, "bold"), bg = "red", fg = "black")
-    sec_label = tk.Label(root, textvariable = sec_var, font = ("roboto", 25, "bold"), bg = "black", fg = "white")
+    min_label = tk.Label(root, textvariable = min_var, font = ("roboto", 50, "bold"), bg = "red", fg = "black")
+    sec_label = tk.Label(root, textvariable = sec_var, font = ("roboto", 50, "bold"), bg = "black", fg = "white")
 
-    canvas.create_window(640, 150, window = min_label)
-    canvas.create_window(640, 200, window = sec_label)
+    canvas.create_window(600, 100, window = min_label)
+    canvas.create_window(700, 100, window = sec_label)
 
     #various buttons for different times, pause, and stop.
     btn_clock_25 = tk.Button(root, text="Start 25min", bd=5, command=lambda: start_timer(25*60), bg="red", font=("roboto", 20, "bold"))
