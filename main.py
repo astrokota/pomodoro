@@ -141,10 +141,10 @@ def window_10min():
     canvas_10.create_window(360, 150, window = min_label_10)
     canvas_10.create_window(360, 200, window = sec_label_10)
 
-    canvas_10.create_window(550, 100, window = btn_start_10)
-    canvas_10.create_window(550, 200, window = btn_pause_10)
-    canvas_10.create_window(550, 300, window = btn_resume_10)
-    canvas_10.create_window(550, 400, window = btn_stop_10)
+    canvas_10.create_window(600, 100, window = btn_start_10)
+    canvas_10.create_window(600, 200, window = btn_pause_10)
+    canvas_10.create_window(600, 300, window = btn_resume_10)
+    canvas_10.create_window(600, 400, window = btn_stop_10)
     
 
 def main():
@@ -175,20 +175,23 @@ def main():
     canvas.create_image(640, 260, image = bg, anchor = "center")
 
     #various buttons for different times, pause, and stop.
-    btn_clock_A = tk.Button(root, text="25min Session", bd=5, command=lambda: start_timer(25*60), bg="red", font=("roboto", 20, "bold"))
-    btn_clock_A.place(x=480, y=580)
+    btn_clock_25 = tk.Button(root, text="Start 25min", bd=5, command=lambda: start_timer(25*60), bg="red", font=("roboto", 20, "bold"))
+    btn_clock_25.place(x=150, y=580)
 
     btn_pause = tk.Button(root, text="Pause", bd=5, command=pause_timer, bg="red", font=("roboto", 20, "bold"))
-    btn_pause.place(x=580, y=580)
+    btn_pause.place(x=350, y=580)
 
     btn_resume = tk.Button(root, text="Resume", bd=5, command=resume_timer, bg="red", font=("roboto", 20, "bold"))
-    btn_resume.place(x=680, y=580)
+    btn_resume.place(x=475, y=580)
 
     btn_stop = tk.Button(root, text="Stop", bd=5, command=stop_timer, bg="red", font=("roboto", 20, "bold"))
-    btn_stop.place(x=780, y=580)
+    btn_stop.place(x=625, y=580)
 
     btn_10min = tk.Button(root, text="10min Session", bd=5, command=window_10min, bg="red", font=("roboto", 20, "bold"))
-    btn_10min.place(x=880, y=580)
+    btn_10min.place(x=825, y=580)
+
+    btn_exit = tk.Button(root, text="Exit", bd=5, command=root.destroy, bg="red", font=("roboto", 20, "bold"))
+    btn_exit.place(x=1075, y=580)
 
     root.mainloop()
 
