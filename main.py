@@ -161,18 +161,19 @@ def main():
     sec_var = tk.StringVar(root, value="00")
 
     #labels for the timers
-    min_label = tk.Label(root, textvariable = min_var, font = ("roboto", 25, "bold"), bg = "red", fg = "black")
-    min_label.pack()
-
-    sec_label = tk.Label(root, textvariable = sec_var, font = ("roboto", 25, "bold"), bg = "black", fg = "white")
-    sec_label.pack()
 
     #application background image
     canvas = tk.Canvas(root, width = 1280, height = 720)
     canvas.pack(expand = True, fill = "both")
     img = Image.open("25min_pomodoro_background.png")
     bg = ImageTk.PhotoImage(img)
-    canvas.create_image(640, 260, image = bg, anchor = "center")
+    canvas.create_image(0, 0, image = bg, anchor = "nw")
+
+    min_label = tk.Label(root, textvariable = min_var, font = ("roboto", 25, "bold"), bg = "red", fg = "black")
+    sec_label = tk.Label(root, textvariable = sec_var, font = ("roboto", 25, "bold"), bg = "black", fg = "white")
+
+    canvas.create_window(640, 150, window = min_label)
+    canvas.create_window(640, 200, window = sec_label)
 
     #various buttons for different times, pause, and stop.
     btn_clock_25 = tk.Button(root, text="Start 25min", bd=5, command=lambda: start_timer(25*60), bg="red", font=("roboto", 20, "bold"))
